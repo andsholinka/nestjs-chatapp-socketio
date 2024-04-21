@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Put, UsePipes, ValidationPipe } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import mongoose from "mongoose";
-import { User } from "src/schemas/user.schema";
+import { User } from "src/users/schemas/user.schema";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('users')
 export class UsersController {
@@ -15,11 +16,13 @@ export class UsersController {
         return this.usersService.createUser(createUserDto);
     }
 
+    @UseGuards(AuthGuard())
     @Get()
     async getUsers(): Promise<User[]> {
         return this.usersService.getUsers();
     }
 
+    @UseGuards(AuthGuard())
     @Get(':id')
     async getUser(@Param('id') id: string) {
         const isValid = mongoose.isValidObjectId(id);
@@ -31,6 +34,7 @@ export class UsersController {
         return findUser;
     }
 
+    @UseGuards(AuthGuard())
     @Put(':id')
     @UsePipes(new ValidationPipe())
     async updateUser(@Param('id') id: string, @Body() data: CreateUserDto) {
@@ -43,6 +47,7 @@ export class UsersController {
         return updatedUser;
     }
 
+    @UseGuards(AuthGuard())
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     async deleteUser(@Param('id') id: string) {
