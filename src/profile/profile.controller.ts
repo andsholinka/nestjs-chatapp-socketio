@@ -5,12 +5,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import mongoose from 'mongoose';
 
-@Controller('profile')
+@Controller('api')
 export class ProfileController {
     constructor(private profileService: ProfileService) { }
 
     @UseGuards(AuthGuard())
-    @Post()
+    @Post('createProfile')
     @UsePipes(new ValidationPipe())
     async createUser(@Body() data: CreateProfileDto, @Req() req) {
         const duplicateUserId = await this.profileService.getProfileByUserId(req.user._id);
@@ -21,7 +21,7 @@ export class ProfileController {
     }
 
     @UseGuards(AuthGuard())
-    @Get()
+    @Get('getProfile')
     async getProfile(@Req() req) {
         const user = await this.profileService.getProfileByUserId(req.user._id);
 
@@ -31,7 +31,7 @@ export class ProfileController {
     }
 
     @UseGuards(AuthGuard())
-    @Put(':id')
+    @Put('updateProfile/:id')
     @UsePipes(new ValidationPipe())
     async updateProfile(@Param('id') id: string, @Body() data: UpdateProfileDto) {
         const updateProfile = await this.profileService.updateProfile(id, data);
@@ -42,7 +42,7 @@ export class ProfileController {
     }
 
     @UseGuards(AuthGuard())
-    @Delete(':id')
+    @Delete('deleteProfile/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
     async deleteProfile(@Param('id') id: string) {
         const isValid = mongoose.Types.ObjectId.isValid(id);
