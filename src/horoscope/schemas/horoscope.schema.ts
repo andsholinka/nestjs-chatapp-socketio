@@ -3,13 +3,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class Horoscope {
     @Prop({ required: true })
-    start: string;
+    startDate: string;
 
     @Prop({ required: true })
-    end: string;
+    endDate: string;
 
     @Prop({ required: true })
-    Horoscope: string;
+    horoscope: string;
 }
 
 export const HoroscopeSchema = SchemaFactory.createForClass(Horoscope);

@@ -15,7 +15,7 @@ export class UpdateProfileDto {
     gender: Gender;
 
     @IsOptional()
-    birthday: Date;
+    birthday: string;
 
     @IsOptional()
     horoscope?: string;

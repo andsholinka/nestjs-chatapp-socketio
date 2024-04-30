@@ -21,10 +21,10 @@ export class Profile {
     gender: Gender;
 
     @Prop()
-    birthday: Date;
+    birthday: string;
 
-    @Prop({ type: HoroscopeSchema })
-    horoscope?: string;
+    @Prop()
+    horoscope: string;
 
     @Prop()
     height: number;

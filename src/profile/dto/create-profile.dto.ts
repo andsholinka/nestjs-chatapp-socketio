@@ -15,7 +15,7 @@ export class CreateProfileDto {
     gender: Gender;
 
     @IsNotEmpty()
-    birthday: Date;
+    birthday: string;
 
     @IsOptional()
     horoscope?: string;
