@@ -21,7 +21,8 @@ export class ProfileService {
     }
 
     async updateProfile(id: string, updateProfile: UpdateProfileDto) {
-        return await this.profileModel.findByIdAndUpdate(id, updateProfile, { new: true });
+        const filter = { userId: id };
+        return await this.profileModel.findOneAndUpdate(filter, updateProfile || {}, { new: true });
     }
 
     async deleteProfile(id: string) {

@@ -31,10 +31,10 @@ export class ProfileController {
     }
 
     @UseGuards(AuthGuard())
-    @Put('updateProfile/:id')
+    @Put('updateProfile')
     @UsePipes(new ValidationPipe())
-    async updateProfile(@Param('id') id: string, @Body() data: UpdateProfileDto) {
-        const updateProfile = await this.profileService.updateProfile(id, data);
+    async updateProfile(@Req() req, @Body() data: UpdateProfileDto) {
+        const updateProfile = await this.profileService.updateProfile(req.user._id, data);
 
         if (!updateProfile) throw new HttpException('Profile not found', HttpStatus.NOT_FOUND);
 
