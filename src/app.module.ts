@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { HoroscopeModule } from './horoscope/horoscope.module';
 import { ProfileModule } from './profile/profile.module';
+import { ZodiacModule } from './zodiac/zodiac.module';
+import { MessageModule } from './message/message.module';
+import { ConversationModule } from './conversation/conversation.module';
 
 @Module({
   imports: [
@@ -16,7 +19,10 @@ import { ProfileModule } from './profile/profile.module';
     UsersModule,
     AuthModule,
     HoroscopeModule,
-    ProfileModule
+    ProfileModule,
+    ZodiacModule,
+    MessageModule,
+    ConversationModule,
   ],
   controllers: [],
   providers: [],
